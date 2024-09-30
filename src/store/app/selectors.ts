@@ -8,8 +8,8 @@ function selectTotalPages(store: RootState) {
   return store.app.totalPages;
 }
 
-function selectTotalCount(store: RootState) {
-  return store.app.totalCount;
+function selectIsLoading(store: RootState) {
+  return store.app.isLoading;
 }
 
-export { selectData, selectTotalPages, selectTotalCount };
+export { selectData, selectTotalPages, selectIsLoading };

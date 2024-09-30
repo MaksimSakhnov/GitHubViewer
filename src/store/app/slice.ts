@@ -7,11 +7,16 @@ const appSlice = createSlice({
   initialState: appInitialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getGihubRepositories.fulfilled, (state, action) => {
-      state.repositoriesData = action.payload.data;
-      state.totalCount = action.payload.totalCount;
-      state.totalPages = Math.floor(state.totalCount / 20);
-    });
+    builder
+      .addCase(getGihubRepositories.fulfilled, (state, action) => {
+        state.repositoriesData = action.payload.data;
+        state.totalCount = action.payload.totalCount;
+        state.totalPages = Math.floor(state.totalCount / 20);
+        state.isLoading = false;
+      })
+      .addCase(getGihubRepositories.pending, (state) => {
+        state.isLoading = true;
+      });
   },
 });
 

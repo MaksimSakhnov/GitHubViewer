@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { selectTotalPages } from 'store/app';
 
-import type { PaginateProps } from 'components/Paginate/Paginate.type.ts';
+import type { PaginationProps } from 'components/Pagination/Pagination.type.ts';
 
-import styles from './Paginate.module.scss';
+import styles from './Pagination.module.scss';
 
-export function Paginate({ setPage, currentPage }: PaginateProps) {
+export function Pagination({ setPage, currentPage }: PaginationProps) {
   const totalPages = useSelector(selectTotalPages);
   const goNext = () => setPage((prev) => prev + 1);
 

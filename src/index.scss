@@ -1,7 +1,9 @@
 $gray: #858585;
 $emperor: #535353;
 $main-background: #0D1117;
-$black: #F0F6FC;
+$white: #F0F6FC;
+
+$el: #3a3a3a;
 
 
 
@@ -13,7 +15,7 @@ a {
 button {
   background-color: transparent;
   border: none;
-  color: $black;
+  color: $white;
   padding: 0;
   margin: 0;
   font-family: inherit;
@@ -62,7 +64,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   background: $main-background;
-  color: $black;
+  color: $white;
 }
 
 code {

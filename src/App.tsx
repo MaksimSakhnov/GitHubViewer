@@ -1,16 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { Provider, useSelector } from 'react-redux';
+import { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import store, { useAppDispatch } from 'store';
-import { getGihubRepositories, selectData } from 'store/app';
+import { getGihubRepositories, selectData, selectIsLoading } from 'store/app';
 
 import RepositoryCard from 'components/RepositoryCard';
-import Paginate from 'components/Paginate';
+import Pagination from 'components/Pagination';
 
 function App() {
   const dispatch = useAppDispatch();
   const topRef = useRef(null);
 
   const reposData = useSelector(selectData);
+  const isLoading = useSelector(selectIsLoading);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -20,6 +24,14 @@ function App() {
       behavior: 'smooth',
     });
   }, [currentPage]);
+
+  const renderSkeletonContent = () => {
+    const result = [];
+    for (let i = 0; i < 10; i++) {
+      result.push(<RepositoryCard key={i} isLoading={true} />);
+    }
+    return <>{...result}</>;
+  };
 
   return (
     <div style={{ padding: '2vh 5vw', height: '100%' }} ref={topRef}>
@@ -31,11 +43,13 @@ function App() {
           alignItems: 'center',
         }}
       >
-        {reposData.map((el) => (
-          <RepositoryCard repositoryData={el} key={el.id} />
-        ))}
+        {!isLoading &&
+          reposData.map((el) => (
+            <RepositoryCard repositoryData={el} key={el.id} />
+          ))}
+        {isLoading && renderSkeletonContent()}
 
-        <Paginate currentPage={currentPage} setPage={setCurrentPage} />
+        <Pagination currentPage={currentPage} setPage={setCurrentPage} />
       </div>
     </div>
   );
@@ -44,7 +58,9 @@ function App() {
 function AppWrapper() {
   return (
     <Provider store={store}>
-      <App />
+      <SkeletonTheme baseColor="#242629" highlightColor="#3a3a3a" duration={5}>
+        <App />
+      </SkeletonTheme>
     </Provider>
   );
 }
